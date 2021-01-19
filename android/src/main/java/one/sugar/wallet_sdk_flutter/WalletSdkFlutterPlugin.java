@@ -1,5 +1,6 @@
 package one.sugar.wallet_sdk_flutter;
 
+import java.util.Arrays;
 import androidx.annotation.NonNull;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-enum BbcDataType {
+enum MntDataType {
   /// String data
   strData,
 
@@ -14,8 +14,8 @@ enum BbcDataType {
   withData,
 }
 
-class BbcAddressInfo {
-  BbcAddressInfo({
+class MntAddressInfo {
+  MntAddressInfo({
     this.address,
     this.publicKey,
     this.privateKey,
@@ -25,8 +25,8 @@ class BbcAddressInfo {
   final String privateKey;
 }
 
-class BbcTemplateData {
-  BbcTemplateData({
+class MntTemplateData {
+  MntTemplateData({
     this.address,
     this.template,
   });
@@ -34,11 +34,11 @@ class BbcTemplateData {
   final String template;
 }
 
-class WalletBBC {
+class WalletMNT {
   static const _channel = MethodChannel('wallet_sdk_flutter');
 
   ///
-  static Future<String> createBBCTransaction({
+  static Future<String> createMNTTransaction({
     @required List<Map<String, dynamic>> utxos,
     @required String address,
     @required int timestamp,
@@ -51,7 +51,7 @@ class WalletBBC {
     String data = '',
     String dataUUID = '',
     String templateData = '',
-    BbcDataType dataType,
+    MntDataType dataType,
   }) async {
     final result = await _channel.invokeMethod<String>(
       'createBBCTransaction',
@@ -68,7 +68,7 @@ class WalletBBC {
         'data': data,
         'dataWithUUID': dataUUID,
         'templateData': templateData,
-        'dataType': dataType?.index ?? BbcDataType.strData.index,
+        'dataType': dataType?.index ?? MntDataType.strData.index,
         'dataWithFmt': '',
       },
     );
@@ -83,7 +83,7 @@ class WalletBBC {
     return result;
   }
 
-  static Future<BbcTemplateData> createBBCDexOrderTemplateData({
+  static Future<MntTemplateData> createMNTDexOrderTemplateData({
     @required String tradePair,
     @required int price,
     @required int fee,
@@ -110,13 +110,13 @@ class WalletBBC {
         },
       ),
     );
-    return BbcTemplateData(
+    return MntTemplateData(
       address: result['address'].toString(),
       template: result['rawHex'].toString(),
     );
   }
 
-  static Future<BbcAddressInfo> createBBCKeyPair({
+  static Future<MntAddressInfo> createMNTKeyPair({
     @required String bip44Path,
     @required String bip44Key,
   }) async {
@@ -129,14 +129,14 @@ class WalletBBC {
         },
       ),
     );
-    return BbcAddressInfo(
+    return MntAddressInfo(
       address: keyInfo['address']?.toString(),
       publicKey: keyInfo['publicKey']?.toString(),
       privateKey: keyInfo['privateKey']?.toString(),
     );
   }
 
-  static Future<BbcAddressInfo> createBBCFromPrivateKey({
+  static Future<MntAddressInfo> createMNTFromPrivateKey({
     @required String privateKey,
   }) async {
     final keyInfo = Map<String, dynamic>.from(
@@ -147,14 +147,14 @@ class WalletBBC {
         },
       ),
     );
-    return BbcAddressInfo(
+    return MntAddressInfo(
       address: keyInfo['address']?.toString(),
       publicKey: keyInfo['publicKey']?.toString(),
       privateKey: keyInfo['privateKey']?.toString(),
     );
   }
 
-  static Future<String> addressBBCToPublicKey({
+  static Future<String> addressMNTToPublicKey({
     @required String address,
   }) async {
     final publicKey = await _channel.invokeMethod<String>(

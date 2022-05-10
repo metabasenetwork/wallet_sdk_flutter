@@ -48,7 +48,7 @@ class WalletCore {
     final params = {'address': address, 'beta': isBeta};
     switch (chain) {
       case 'BBC':
-        return WalletBBC.validateBBCAddress(params);
+        return WalletMNT.validateBBCAddress(params);
       case 'ETH':
         return WalletETH.validateETHAddress(params);
       case 'BTC':

@@ -18,7 +18,7 @@ Add the dependency in your project's 'pubspec.yaml' file.
 ```yaml
 
   wallet_sdk_flutter:
-    git: https://github.com/Sugar-Foundation/wallet_sdk_flutter
+    git: https://github.com/metabasenetwork/wallet_sdk_flutter
 
 ```
 
